@@ -10,5 +10,5 @@ DB_PASSWORD = os.environ.get("DB_PASSWORD")
 DB_PORT = os.environ.get("DB_PORT")
 
 # DNS
-ASYNC_DB_URL = f'postgresql+asyncopg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
-DB_URL = f'postgresql+psycopg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
+ASYNC_DB_URL = f'postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
+DB_URL = f'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
