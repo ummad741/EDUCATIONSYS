@@ -41,6 +41,52 @@ CREATE DATABASE yourDATABASE OWNER yourUSER;
 GRANT ALL PRIVILEGES ON DATABASE yourDATABASE TO
 YOURUSER;
 ```
+### 2. Delete a PostgreSQL user and database
+
+Enter the postgresql via terminal:
+
+```bash
+sudo -u postgres psql
+```
+
+```sql
+-- Delete Databse
+DROP DATABASE yourdb;
+
+-- ⚠️ If you get:
+ERROR: database "yourdatabse" is being accessed by other users
+
+-- Then force disconnect all connections:
+SELECT pg_terminate_backend(pid)
+FROM pg_stat_activity
+WHERE datname = 'yourdatabase';
+
+-- Then drop again:
+DROP DATABASE yourdb
+
+-- Delete user 
+DROP ROLE youruser;
+
+-- ⚠️ If you get:
+ERROR:  role "test" cannot be dropped because some objects depend on it
+DETAIL:  owner of database yourdb
+
+-- Check what belongs to that user:
+\ddp
+
+-- Or check owned objects:
+SELECT * FROM pg_catalog.pg_roles;
+
+-- Make user own nothing:
+REASSIGN OWNED BY manager TO postgres;
+
+-- Then remove all privileges:
+
+DROP OWNED BY youruser;
+
+-- then Delete again user
+DROP ROLE youruser;
+```
 
 ### 3. Checking the creations via psql
 
